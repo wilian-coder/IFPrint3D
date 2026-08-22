@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IFPrint 3D | Solicitação de Impressão</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">3D</div>
+      <div>
+        <strong>IFPrint 3D</strong>
+        <span>Laboratório de Impressão 3D</span>
+      </div>
+    </div>
+    <a class="admin-link" href="admin.html">Área administrativa</a>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">SOLICITAÇÃO DE IMPRESSÃO</span>
+        <h1>Envie seu projeto para impressão 3D</h1>
+        <p>Preencha seus dados, explique o que deseja imprimir e envie o arquivo 3D.</p>
+      </div>
+      <div class="hero-icon">⬡</div>
+    </section>
+
+    <section class="card">
+      <div id="configWarning" class="alert warning hidden"></div>
+
+      <form id="submissionForm">
+        <div class="section-title">
+          <span>01</span>
+          <div>
+            <h2>Identificação</h2>
+            <p>Informe quem está solicitando a impressão.</p>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <label>
+            Nome completo *
+            <input id="studentName" type="text" maxlength="100" required placeholder="Ex.: João da Silva">
+          </label>
+
+          <label>
+            Turma *
+            <input id="studentClass" type="text" maxlength="50" required placeholder="Ex.: 2º Controle Ambiental">
+          </label>
+        </div>
+
+        <div class="section-title">
+          <span>02</span>
+          <div>
+            <h2>Projeto</h2>
+            <p>Conte um pouco sobre a peça que deseja imprimir.</p>
+          </div>
+        </div>
+
+        <label>
+          Nome da peça/projeto *
+          <input id="projectName" type="text" maxlength="120" required placeholder="Ex.: Suporte para sensor">
+        </label>
+
+        <label>
+          Descrição *
+          <textarea id="description" maxlength="1000" required placeholder="Explique para que serve a peça, quantidade desejada, observações e outras informações importantes."></textarea>
+          <small><span id="charCount">0</span>/1000</small>
+        </label>
+
+        <div class="section-title">
+          <span>03</span>
+          <div>
+            <h2>Arquivo 3D</h2>
+            <p>Envie o modelo que deverá ser analisado para impressão.</p>
+          </div>
+        </div>
+
+        <label class="upload-box" for="modelFile">
+          <div class="upload-icon">↑</div>
+          <strong>Selecione o arquivo</strong>
+          <span>STL, 3MF ou OBJ • máximo de 50 MB</span>
+          <input id="modelFile" type="file" accept=".stl,.3mf,.obj" required>
+          <div id="fileName" class="file-name">Nenhum arquivo selecionado</div>
+        </label>
+
+        <div class="notice">
+          <strong>Importante:</strong> o envio do arquivo não significa que a impressão será iniciada automaticamente.
+          O projeto será analisado antes da produção.
+        </div>
+
+        <button id="submitButton" class="primary-button" type="submit">
+          Enviar solicitação
+        </button>
+
+        <div id="progressArea" class="progress-area hidden">
+          <div class="progress-track"><div id="progressBar"></div></div>
+          <p id="progressText">Enviando...</p>
+        </div>
+
+        <div id="resultArea"></div>
+      </form>
+    </section>
+  </main>
+
+  <footer>IFPrint 3D • Sistema de solicitação de impressão</footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IFPrint 3D | Administração</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">3D</div>
+      <div>
+        <strong>IFPrint 3D</strong>
+        <span>Painel administrativo</span>
+      </div>
+    </div>
+    <a class="admin-link" href="index.html">← Formulário</a>
+  </header>
+
+  <main class="container admin-container">
+    <section id="loginCard" class="card narrow">
+      <div class="section-title">
+        <span>🔐</span>
+        <div>
+          <h2>Acesso administrativo</h2>
+          <p>Entre com a conta cadastrada no Firebase Authentication.</p>
+        </div>
+      </div>
+
+      <form id="loginForm">
+        <label>E-mail
+          <input id="email" type="email" required placeholder="admin@exemplo.com">
+        </label>
+        <label>Senha
+          <input id="password" type="password" required placeholder="••••••••">
+        </label>
+        <button class="primary-button" type="submit">Entrar</button>
+        <div id="loginMessage"></div>
+      </form>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <div class="dashboard-head">
+        <div>
+          <span class="eyebrow">PAINEL</span>
+          <h1>Solicitações de impressão</h1>
+          <p>Gerencie os pedidos enviados pelos alunos.</p>
+        </div>
+        <button id="logoutButton" class="secondary-button">Sair</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span>Total</span><strong id="totalCount">0</strong></div>
+        <div class="stat"><span>Pendentes</span><strong id="pendingCount">0</strong></div>
+        <div class="stat"><span>Imprimindo</span><strong id="printingCount">0</strong></div>
+        <div class="stat"><span>Concluídos</span><strong id="doneCount">0</strong></div>
+      </div>
+
+      <div class="toolbar">
+        <input id="searchInput" type="search" placeholder="Pesquisar por nome, turma ou projeto...">
+        <select id="statusFilter">
+          <option value="todos">Todos os status</option>
+          <option value="pendente">Pendente</option>
+          <option value="analise">Em análise</option>
+          <option value="aprovado">Aprovado</option>
+          <option value="imprimindo">Imprimindo</option>
+          <option value="concluido">Concluído</option>
+          <option value="recusado">Recusado</option>
+        </select>
+      </div>
+
+      <div id="requestsList" class="requests-list">
+        <div class="empty">Carregando solicitações...</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>IFPrint 3D • Área administrativa</footer>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
