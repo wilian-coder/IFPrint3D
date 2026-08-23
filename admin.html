@@ -8,36 +8,30 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.179.1/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.179.1/examples/jsm/"
+    }
+  }
+  </script>
 </head>
 <body>
   <header class="topbar">
     <div class="brand">
       <div class="brand-mark">3D</div>
-      <div>
-        <strong>IFPrint 3D</strong>
-        <span>Painel administrativo</span>
-      </div>
+      <div><strong>IFPrint 3D</strong><span>Painel administrativo</span></div>
     </div>
     <a class="admin-link" href="index.html">← Formulário</a>
   </header>
 
   <main class="container admin-container">
     <section id="loginCard" class="card narrow">
-      <div class="section-title">
-        <span>🔐</span>
-        <div>
-          <h2>Acesso administrativo</h2>
-          <p>Entre com a conta cadastrada no Firebase Authentication.</p>
-        </div>
-      </div>
-
+      <div class="section-title"><span>🔐</span><div><h2>Acesso administrativo</h2><p>Entre com a conta de administrador cadastrada no Firebase e no Supabase.</p></div></div>
       <form id="loginForm">
-        <label>E-mail
-          <input id="email" type="email" required placeholder="admin@exemplo.com">
-        </label>
-        <label>Senha
-          <input id="password" type="password" required placeholder="••••••••">
-        </label>
+        <label>E-mail<input id="email" type="email" required></label>
+        <label>Senha<input id="password" type="password" required></label>
         <button class="primary-button" type="submit">Entrar</button>
         <div id="loginMessage"></div>
       </form>
@@ -45,11 +39,7 @@
 
     <section id="dashboard" class="hidden">
       <div class="dashboard-head">
-        <div>
-          <span class="eyebrow">PAINEL</span>
-          <h1>Solicitações de impressão</h1>
-          <p>Gerencie os pedidos enviados pelos alunos.</p>
-        </div>
+        <div><span class="eyebrow">PAINEL</span><h1>Solicitações de impressão</h1><p>Gerencie os pedidos enviados pelos alunos.</p></div>
         <button id="logoutButton" class="secondary-button">Sair</button>
       </div>
 
@@ -73,14 +63,25 @@
         </select>
       </div>
 
-      <div id="requestsList" class="requests-list">
-        <div class="empty">Carregando solicitações...</div>
-      </div>
+      <div id="requestsList" class="requests-list"></div>
     </section>
   </main>
 
-  <footer>IFPrint 3D • Área administrativa</footer>
+  <div id="viewerModal" class="viewer-modal hidden">
+    <div class="viewer-dialog">
+      <div class="viewer-head">
+        <div><span class="eyebrow">VISUALIZADOR 3D</span><h2 id="viewerTitle">Modelo STL</h2><p id="viewerInfo"></p></div>
+        <div class="viewer-head-actions">
+          <button id="viewerReset" class="secondary-button" type="button">Centralizar</button>
+          <button id="viewerClose" class="viewer-close" type="button">×</button>
+        </div>
+      </div>
+      <div id="viewerStage" class="viewer-stage"></div>
+      <div class="viewer-help">Arraste para girar • Scroll para zoom • Botão direito para mover</div>
+    </div>
+  </div>
 
+  <footer>IFPrint 3D • Área administrativa</footer>
   <script type="module" src="admin.js"></script>
 </body>
 </html>
