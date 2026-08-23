@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IFPrint 3D | Solicitação de Impressão</title>
+  <title>IFPrint 3D | Área do aluno</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,102 +15,213 @@
       <div class="brand-mark">3D</div>
       <div>
         <strong>IFPrint 3D</strong>
-        <span>Laboratório de Impressão 3D</span>
+        <span>Área do aluno</span>
       </div>
     </div>
-    <a class="admin-link" href="admin.html">Área administrativa</a>
+
+    <div class="student-top-actions">
+      <span id="topUserName" class="top-user-name hidden"></span>
+      <button id="logoutStudentButton" class="secondary-button hidden" type="button">Sair</button>
+      <a class="admin-link" href="admin.html">Área administrativa</a>
+    </div>
   </header>
 
   <main class="container">
-    <section class="hero">
-      <div>
-        <span class="eyebrow">SOLICITAÇÃO DE IMPRESSÃO</span>
-        <h1>Envie seu projeto para impressão 3D</h1>
-        <p>Preencha seus dados, explique o que deseja imprimir e envie o arquivo 3D.</p>
+    <section id="authSection" class="student-auth-layout">
+      <div class="student-auth-intro">
+        <span class="eyebrow">IFPRINT 3D</span>
+        <h1>Acompanhe suas impressões 3D</h1>
+        <p>Crie sua conta uma única vez. Depois, sempre que voltar ao site, você poderá visualizar seus pedidos e o status de cada impressão.</p>
+
+        <div class="student-benefits">
+          <div><strong>✓</strong><span>Histórico de solicitações</span></div>
+          <div><strong>✓</strong><span>Status atualizado pelo laboratório</span></div>
+          <div><strong>✓</strong><span>Novo pedido vinculado à sua conta</span></div>
+        </div>
       </div>
-      <div class="hero-icon">⬡</div>
+
+      <section class="card student-auth-card">
+        <div class="auth-tabs">
+          <button id="loginTab" class="auth-tab active" type="button">Entrar</button>
+          <button id="registerTab" class="auth-tab" type="button">Criar conta</button>
+        </div>
+
+        <form id="loginFormStudent">
+          <label>E-mail
+            <input id="loginEmail" type="email" required placeholder="seuemail@exemplo.com">
+          </label>
+          <label>Senha
+            <input id="loginPassword" type="password" required minlength="6" placeholder="••••••••">
+          </label>
+          <button class="primary-button" type="submit">Entrar</button>
+        </form>
+
+        <form id="registerFormStudent" class="hidden">
+          <label>Nome completo
+            <input id="registerName" type="text" required maxlength="100" placeholder="Ex.: João da Silva">
+          </label>
+          <label>Turma
+            <input id="registerClass" type="text" required maxlength="50" placeholder="Ex.: 2º Controle Ambiental">
+          </label>
+          <label>E-mail
+            <input id="registerEmail" type="email" required placeholder="seuemail@exemplo.com">
+          </label>
+          <label>Senha
+            <input id="registerPassword" type="password" required minlength="6" placeholder="Mínimo de 6 caracteres">
+          </label>
+          <button class="primary-button" type="submit">Criar minha conta</button>
+        </form>
+
+        <div id="authMessageStudent"></div>
+      </section>
     </section>
 
-    <section class="card">
-      <div id="configWarning" class="alert warning hidden"></div>
+    <section id="studentArea" class="hidden">
+      <section class="student-welcome">
+        <div>
+          <span class="eyebrow">MINHA ÁREA</span>
+          <h1>Olá, <span id="welcomeName">aluno</span> 👋</h1>
+          <p>Acompanhe seus pedidos ou envie uma nova solicitação.</p>
+        </div>
+        <button id="newRequestButton" class="primary-button student-new-request" type="button">+ Nova solicitação</button>
+      </section>
 
-      <form id="submissionForm">
-        <div class="section-title">
-          <span>01</span>
+      <div class="student-stats">
+        <div class="stat"><span>Total</span><strong id="studentTotal">0</strong></div>
+        <div class="stat"><span>Em andamento</span><strong id="studentActive">0</strong></div>
+        <div class="stat"><span>Concluídas</span><strong id="studentDone">0</strong></div>
+      </div>
+
+      <section class="card student-history-card">
+        <div class="student-section-head">
           <div>
-            <h2>Identificação</h2>
-            <p>Informe quem está solicitando a impressão.</p>
+            <span class="eyebrow">HISTÓRICO</span>
+            <h2>Minhas impressões</h2>
           </div>
+          <select id="studentStatusFilter">
+            <option value="todos">Todos os status</option>
+            <option value="pendente">Pendente</option>
+            <option value="analise">Em análise</option>
+            <option value="aprovado">Aprovado</option>
+            <option value="imprimindo">Imprimindo</option>
+            <option value="concluido">Concluído</option>
+            <option value="recusado">Recusado</option>
+          </select>
         </div>
 
-        <div class="grid two">
-          <label>
-            Nome completo *
-            <input id="studentName" type="text" maxlength="100" required placeholder="Ex.: João da Silva">
+        <div id="studentRequestsList" class="student-request-list">
+          <div class="empty">Carregando seus pedidos...</div>
+        </div>
+      </section>
+
+      <section id="newRequestSection" class="card student-request-form-card hidden">
+        <div class="student-section-head">
+          <div>
+            <span class="eyebrow">NOVO PEDIDO</span>
+            <h2>Solicitação de impressão 3D</h2>
+          </div>
+          <button id="closeRequestButton" class="secondary-button" type="button">Fechar</button>
+        </div>
+
+        <div id="configWarning" class="alert warning hidden"></div>
+
+        <form id="submissionForm">
+          <div class="grid two">
+            <label>Nome completo
+              <input id="studentName" type="text" maxlength="100" required>
+            </label>
+            <label>Turma
+              <input id="studentClass" type="text" maxlength="50" required>
+            </label>
+          </div>
+
+          <label>Nome da peça/projeto
+            <input id="projectName" type="text" maxlength="120" required placeholder="Ex.: Suporte para sensor">
           </label>
 
-          <label>
-            Turma *
-            <input id="studentClass" type="text" maxlength="50" required placeholder="Ex.: 2º Controle Ambiental">
+          <label>Descrição
+            <textarea id="description" maxlength="1000" required placeholder="Explique para que serve a peça, quantidade desejada e outras informações importantes."></textarea>
+            <small><span id="charCount">0</span>/1000</small>
           </label>
-        </div>
 
-        <div class="section-title">
-          <span>02</span>
-          <div>
-            <h2>Projeto</h2>
-            <p>Conte um pouco sobre a peça que deseja imprimir.</p>
+          <label class="upload-box" for="modelFile">
+            <div class="upload-icon">↑</div>
+            <strong>Selecione o arquivo</strong>
+            <span>STL, 3MF ou OBJ • máximo de 50 MB</span>
+            <input id="modelFile" type="file" accept=".stl,.3mf,.obj" required>
+            <div id="fileName" class="file-name">Nenhum arquivo selecionado</div>
+          </label>
+
+          <div class="notice">
+            <strong>Importante:</strong> o envio do arquivo não significa que a impressão será iniciada automaticamente. O projeto será analisado antes da produção.
           </div>
-        </div>
 
-        <label>
-          Nome da peça/projeto *
-          <input id="projectName" type="text" maxlength="120" required placeholder="Ex.: Suporte para sensor">
-        </label>
+          <button id="submitButton" class="primary-button" type="submit">Enviar solicitação</button>
 
-        <label>
-          Descrição *
-          <textarea id="description" maxlength="1000" required placeholder="Explique para que serve a peça, quantidade desejada, observações e outras informações importantes."></textarea>
-          <small><span id="charCount">0</span>/1000</small>
-        </label>
-
-        <div class="section-title">
-          <span>03</span>
-          <div>
-            <h2>Arquivo 3D</h2>
-            <p>Envie o modelo que deverá ser analisado para impressão.</p>
+          <div id="progressArea" class="progress-area hidden">
+            <div class="progress-track"><div id="progressBar"></div></div>
+            <p id="progressText">Enviando...</p>
           </div>
-        </div>
 
-        <label class="upload-box" for="modelFile">
-          <div class="upload-icon">↑</div>
-          <strong>Selecione o arquivo</strong>
-          <span>STL, 3MF ou OBJ • máximo de 50 MB</span>
-          <input id="modelFile" type="file" accept=".stl,.3mf,.obj" required>
-          <div id="fileName" class="file-name">Nenhum arquivo selecionado</div>
-        </label>
-
-        <div class="notice">
-          <strong>Importante:</strong> o envio do arquivo não significa que a impressão será iniciada automaticamente.
-          O projeto será analisado antes da produção.
-        </div>
-
-        <button id="submitButton" class="primary-button" type="submit">
-          Enviar solicitação
-        </button>
-
-        <div id="progressArea" class="progress-area hidden">
-          <div class="progress-track"><div id="progressBar"></div></div>
-          <p id="progressText">Enviando...</p>
-        </div>
-
-        <div id="resultArea"></div>
-      </form>
+          <div id="resultArea"></div>
+        </form>
+      </section>
     </section>
   </main>
 
-  <footer>IFPrint 3D • Sistema de solicitação de impressão</footer>
 
+  <div id="studentDetailsModal" class="student-details-modal hidden">
+    <div class="student-details-dialog">
+      <div class="student-details-head">
+        <div>
+          <span class="eyebrow">DETALHES DO PEDIDO</span>
+          <h2 id="detailsProjectName">Projeto</h2>
+          <p id="detailsCode"></p>
+        </div>
+        <button id="detailsCloseButton" class="viewer-close" type="button" aria-label="Fechar">×</button>
+      </div>
+
+      <div class="student-details-body">
+        <div class="details-status-card">
+          <span>Status atual</span>
+          <strong id="detailsStatus">Pendente</strong>
+          <div id="detailsTimeline" class="details-timeline"></div>
+        </div>
+
+        <div id="detailsMessageCard" class="details-message-card">
+          <span>Mensagem do laboratório</span>
+          <p id="detailsLabMessage">Ainda não há mensagem do laboratório.</p>
+          <small id="detailsMessageDate"></small>
+        </div>
+
+        <div class="details-grid">
+          <div>
+            <span>Data da solicitação</span>
+            <strong id="detailsCreatedAt">—</strong>
+          </div>
+          <div>
+            <span>Última atualização</span>
+            <strong id="detailsUpdatedAt">—</strong>
+          </div>
+          <div>
+            <span>Arquivo enviado</span>
+            <strong id="detailsFileName">—</strong>
+          </div>
+          <div>
+            <span>Turma</span>
+            <strong id="detailsClass">—</strong>
+          </div>
+        </div>
+
+        <div class="details-description">
+          <span>Descrição da solicitação</span>
+          <p id="detailsDescription"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>IFPrint 3D • Sistema de solicitação de impressão</footer>
   <script type="module" src="app.js"></script>
 </body>
 </html>
